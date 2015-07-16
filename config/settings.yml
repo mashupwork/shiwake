@@ -1,5 +1,12 @@
+secret_key_base: ''
+
 timecrowd:
   client_id: ''
   client_secret: ''
   site: 'https://timecrowd.net'
+
+deploy:
+  to: '/var/www/shiwake'
+  host: ''
+  user: ''
 
