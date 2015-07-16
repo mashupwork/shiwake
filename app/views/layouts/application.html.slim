@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    meta charset="UTF-8"
+    title Shiwake
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
+    = javascript_include_tag 'application', 'data-turbolinks-track': true
+    = csrf_meta_tags
+  body
+    .container-fluid
+      - if flash[:notice].present?
+        .alert.alert-success
+          button.close type="button" data-dismiss="alert" &times;
+          = flash[:notice]
+      - if flash[:alert].present?
+        .alert.alert-danger
+          button.close type="button" data-dismiss="alert" &times;
+          = flash[:alert]
+
+      = yield
+      hr
+      footer
+        ul.list-inline.pull-right
+          - if user_signed_in?
+            li
+              = link_to "#{Settings.timecrowd.site}/users/#{current_user.uid}", target: '_blank' do
+                = image_tag current_user.info.image, size: '24x24'
+                =< current_user.info.nickname
+            li
+              li= link_to 'Sign out', :sign_out, method: :delete
+
+        ul.list-inline
+          li
+            = link_to 'Fork me on GitHub', 'https://github.com/tnantoka/shiwake', target: '_blank', class: 'text-muted'
+
