@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
     end
 
     def client
-      token = current_user.credentials.token
-      TimeCrowd.new(token)
+      TimeCrowd.new(current_user.credentials)
     end
 end

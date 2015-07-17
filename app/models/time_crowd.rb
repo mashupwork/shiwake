@@ -1,14 +1,21 @@
 class TimeCrowd
   attr_accessor :client, :access_token
 
-  def initialize(token)
+  def initialize(credentials)
     self.client = OAuth2::Client.new(
       Settings.timecrowd.client_id,
       Settings.timecrowd.client_secret,
       site: Settings.timecrowd.site,
       ssl: { verify: false }
     )
-    self.access_token = OAuth2::AccessToken.new(client, token)
+    self.access_token = OAuth2::AccessToken.new(
+      client,
+      credentials.token,
+      refresh_token: credentials.refresh_token,
+      expires_at: credentials.expires_at
+    )
+    self.access_token = access_token.refresh! if self.access_token.expired?
+    access_token
   end
 
   def teams(state = nil)
