@@ -23,11 +23,13 @@ html
         ul.list-inline.pull-right
           - if user_signed_in?
             li
-              = link_to "#{Settings.timecrowd.site}/users/#{current_user.uid}", target: '_blank' do
+              = link_to current_user.extra.raw_info.html_url, target: '_blank' do
                 = image_tag current_user.info.image, size: '24x24'
                 =< current_user.info.nickname
             li
-              li= link_to 'Sign out', :sign_out, method: :delete
+              = link_to 'Home', :dashboard
+            li
+              = link_to 'Sign out', :sign_out, method: :delete
 
         ul.list-inline
           li

@@ -6,5 +6,6 @@ class WelcomeController < ApplicationController
   end
 
   def dashboard
+    @teams = client.teams('managed')
   end
 end

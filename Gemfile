@@ -50,12 +50,6 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
 end
 
-gem 'omniauth-timecrowd', github: 'ruffnote/omniauth-timecrowd'
-gem 'rails_config'
-gem 'slim-rails'
-gem 'bootstrap-sass'
-gem 'font-awesome-sass'
-
 group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-bundler'
@@ -63,3 +57,13 @@ group :development do
   gem 'capistrano-passenger'
 end
 
+gem 'omniauth-timecrowd', github: 'ruffnote/omniauth-timecrowd'
+gem 'rails_config'
+gem 'slim-rails'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass'
+gem 'react-rails'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-select2'
+end

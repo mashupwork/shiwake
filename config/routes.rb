@@ -7,7 +7,13 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/sign_out', to: 'sessions#destroy'
+  # FIXME
+  get '/sign_out', to: 'sessions#destroy'# if Rails.env.development?
   get '/auth/failure', to: 'sessions#failure'
+
+  resources :teams, only: [:edit] do
+    resources :tasks, only: [:index, :update]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

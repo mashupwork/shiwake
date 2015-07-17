@@ -24,4 +24,9 @@ class ApplicationController < ActionController::Base
     def authenticate_user!
       redirect_to :root, alert: 'Signed in' unless user_signed_in?
     end
+
+    def client
+      token = current_user.credentials.token
+      TimeCrowd.new(token)
+    end
 end

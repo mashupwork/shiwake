@@ -1,0 +1,6 @@
+h2 Teams
+
+.list-group
+  - @teams.each do |team|
+    = link_to team['name'], edit_team_path(team['id']), class: 'list-group-item'
+

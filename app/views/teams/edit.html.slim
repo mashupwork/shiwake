@@ -1,0 +1,10 @@
+h2
+  => @team['name']
+  small
+    = link_to @team['html_url'], target: '_blank' do
+      = icon('external-link')
+
+h3 Uncategorized tasks
+
+= react_component('TaskList', { initialTasks: @tasks, teamId: @team['id'] })
+
