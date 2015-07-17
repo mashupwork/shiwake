@@ -57,6 +57,10 @@ group :development do
   gem 'capistrano-passenger'
 end
 
+group :production do
+  gem 'exception_notification'
+end
+
 gem 'omniauth-timecrowd', github: 'ruffnote/omniauth-timecrowd'
 gem 'rails_config'
 gem 'slim-rails'
