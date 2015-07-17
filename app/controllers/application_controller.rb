@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
     end
 
     def client
-      TimeCrowd.new(current_user.credentials)
+      token = TimeCrowd.new(current_user.credentials)
+
+      current_user.credentials.expires_at = token.access_token.expires_at
+      current_user.credentials.refresh_token = token.access_token.refresh_token
+      current_user.credentials.token = token.access_token.token
+      self.current_user = current_user
+
+      token
     end
 end
