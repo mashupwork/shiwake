@@ -6,20 +6,16 @@
   getInitialState: ->
     tasks: @props.initialTasks
     parents: []
+    loading: false
 
-  handleSaveItem: (taskId) ->
-    #index = 0
-    #for task, i in @state.tasks
-    #  if taskId == task.id
-    #    index = i
-    #    break
-    #tasks = React.addons.update(@state.tasks, { $splice: [[index, 1]] })
-    #@setState(tasks: tasks)
+  handleSaveItem: ->
+    @fetchParents()
 
   componentWillMount: ->
     @fetchParents()
 
   fetchParents: ->
+    @setState(loading: true)
     $.ajax
       method: 'GET'
       dataType: 'json'
@@ -28,13 +24,19 @@
         @setState(parents: data)
       error: (jqXHR, textStatus, errorThrown) ->
         console.error(jqXHR, textStatus, errorThrown)
-        errors = jqXHR.responseJSON
-        alert(errors.join('\n'))
+        alert("#{textStatus}\n#{errorThrown}")
+        @setState(editing: false)
       complete: =>
+        @setState(loading: false)
 
   render: ->
     unless @state.parents.length
       return `<div><i className="fa fa-fw fa-spinner fa-pulse fa-lg"></i></div>`
+
+    spinner = if @state.loading
+                `<small>&nbsp;<i className="fa fa-fw fa-spinner fa-pulse text-muted"></i></small>`
+              else
+                `<span></span>`
 
     itemNodes = @state.tasks.map (task) =>
       props =
@@ -44,7 +46,13 @@
         teamId: @props.teamId
       `<TaskItem {...props} key={task.id} />`
 
-    `<table className="table table-hover">
-      {itemNodes}
-    </table>`
+    `<div>
+      <h3>
+        Uncategorized tasks
+        {spinner}
+      </h3>
+      <table className="table table-hover">
+        {itemNodes}
+      </table>
+    </div>`
 

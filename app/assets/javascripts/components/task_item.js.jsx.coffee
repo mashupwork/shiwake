@@ -21,6 +21,12 @@
     return unless parent
     $(parent).select2()
 
+  shouldComponentUpdate: (nextProps, nextState) ->
+    if !@state.loading && !nextState.loading && @state.editing && nextState.editing
+      false
+    else
+      true
+
   handleTitleClick: (e) ->
     e.preventDefault()
     @setState(editing: true)
@@ -53,6 +59,7 @@
       data: params
       success: =>
         @setState(removed: true)
+        @props.onSave()
       error: (jqXHR, textStatus, errorThrown) ->
         console.error(jqXHR, textStatus, errorThrown)
         errors = jqXHR.responseJSON
@@ -93,7 +100,7 @@
         </td>
         <td>
           <td className="text-nowrap">
-            <i className="fa fa-fw fa-spinner fa-pulse"></i>
+            <i className="fa fa-fw fa-spinner fa-pulse fa-lg"></i>
           </td>
         </td>
       </tr>`
