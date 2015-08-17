@@ -67,6 +67,7 @@ gem 'slim-rails'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'react-rails'
+gem 'activerecord-session_store'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-select2'
