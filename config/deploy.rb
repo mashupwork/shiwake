@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'shiwake'
-set :repo_url, 'git@github.com:tnantoka/shiwake.git'
+set :repo_url, 'https://github.com/tnantoka/shiwake.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -50,5 +50,8 @@ namespace :deploy do
 end
 
 set :passenger_restart_with_touch, true
-set :rvm_ruby_version, '2.2.1'
-
+if Settings.deploy.rvm
+  set :rvm_ruby_version, '2.2.1'
+else
+  set :rbenv_ruby, '2.2.4'
+end

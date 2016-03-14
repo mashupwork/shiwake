@@ -15,8 +15,6 @@ require 'capistrano/deploy'
 #   https://github.com/capistrano/rails
 #   https://github.com/capistrano/passenger
 #
-require 'capistrano/rvm'
-# require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
@@ -26,6 +24,12 @@ require 'capistrano/passenger'
 require 'rails'
 require 'rails_config'
 RailsConfig.load_and_set_settings('config/settings.yml', 'config/settings.local.yml')
+
+if Settings.deploy.rvm
+  require 'capistrano/rvm'
+else
+  require 'capistrano/rbenv'
+end
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
