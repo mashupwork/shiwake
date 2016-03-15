@@ -6,3 +6,9 @@
 
 Categorization tool for [TimeCrowd](https://timecrowd.net/).
 
+# Install
+
+```
+$ cp config/settings/development.local.yml config/settings/development.yml
+$ vim config/settings/development.local.yml
+```
