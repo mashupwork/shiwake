@@ -11,6 +11,9 @@
   handleSaveItem: ->
     @fetchParents()
 
+  handleFilter: (tasks) ->
+    @setState(tasks: tasks)
+
   componentWillMount: ->
     @fetchParents()
 
@@ -47,12 +50,15 @@
       `<TaskItem {...props} key={task.id} />`
 
     `<div>
+      <TaskFilter tasks={this.props.initialTasks} handleFilter={this.handleFilter.bind(this)}/>
       <h3>
         Uncategorized tasks
         {spinner}
       </h3>
       <table className="table table-hover">
-        {itemNodes}
+        <tbody>
+          {itemNodes}
+        </tbody>
       </table>
     </div>`
 
